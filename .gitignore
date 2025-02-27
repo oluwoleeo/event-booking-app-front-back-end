@@ -3,6 +3,10 @@ node_modules
 .vscode
 bootstrap
 vendor
+<<<<<<< HEAD
 .env
 storage
 volumes
+=======
+.env
+>>>>>>> 9613b30 (Add .gitignore to parent folder)
