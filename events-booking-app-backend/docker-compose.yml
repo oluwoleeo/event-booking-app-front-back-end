@@ -1,0 +1,10 @@
+services:
+    database:
+        image: mysql:8.0.41
+        container_name: events-booking-app-mysql-db
+        environment:
+            MYSQL_ROOT_PASSWORD: MySQL*123
+        ports:
+            - "3306:3306"
+        volumes:
+            -   ../volumes/db:/var/lib/mysql
