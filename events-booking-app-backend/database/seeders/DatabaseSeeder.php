@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
          \App\Models\User::factory()->create([
-             'firstname' => 'Default',
-             'lastname' => 'User',
-             'email' => 'default@default.com',
+             'firstname' => env('DEFAULT_FIRST_NAME'),
+             'lastname' => env('DEFAULT_LAST_NAME'),
+             'email' => env('DEFAULT_USER_EMAIL'),
+         ])->categories()->create([
+             'name' => 'Default',
          ]);
     }
 }
