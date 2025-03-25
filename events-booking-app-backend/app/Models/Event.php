@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class Event extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
+        'category_id',
+        'start_date',
+        'end_date',
+        'description',
+        'max_capacity',
         'owner_id'
     ];
 
@@ -25,11 +29,11 @@ class Category extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function events(): HasMany
+    public function category(): BelongsTo
     {
-        return $this->hasMany(Event::class);
+        return $this->belongsTo(Category::class);
     }
 }
