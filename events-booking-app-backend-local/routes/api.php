@@ -11,6 +11,5 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'register']);
-Route::get('/events/categories', [EventsController::class, 'getUserCategories']);
-Route::post('/events/category', [EventsController::class, 'createCategories']);
+Route::get('/events/categories', [EventsController::class, 'getCategories']);
 Route::post('/events', [EventsController::class, 'store']);

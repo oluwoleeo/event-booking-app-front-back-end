@@ -50,11 +50,6 @@ class User extends Authenticatable
         ];
     }
 
-    public function categories(): HasMany
-    {
-        return $this->hasMany(Category::class, 'owner_id');
-    }
-
     public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'owner_id');
