@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,8 +20,13 @@ class DatabaseSeeder extends Seeder
              'firstname' => env('DEFAULT_FIRST_NAME'),
              'lastname' => env('DEFAULT_LAST_NAME'),
              'email' => env('DEFAULT_USER_EMAIL'),
-         ])->categories()->create([
-             'name' => 'Default',
          ]);
+
+        $categories = explode(',', env('EVENT_CATEGORIES'));
+        foreach ($categories as $category) {
+            Category::factory()->create([
+                'name' => $category,
+            ]);
+        }
     }
 }
