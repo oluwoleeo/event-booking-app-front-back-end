@@ -137,7 +137,7 @@ class EventsController extends Controller
     public function update(Request $request, Event $event){
         if ($request->user()->id !== $event->owner_id){
             return response()->json([
-                'message' => 'You cannot edit this event'
+                'message' => 'You cannot edit this event!'
             ], Response::HTTP_FORBIDDEN);
         }
 
@@ -161,13 +161,27 @@ class EventsController extends Controller
             }
 
             unset($validated['category']);
-
             $validated['category_id'] = $category->id;
         }
 
         $event->update($validated);
 
         return $event->fresh('category');
+    }
+
+    public function destroy(Request $request, Event $event)
+    {
+        if ($request->user()->id !== $event->owner_id){
+            return response()->json([
+                'message' => 'You cannot delete this event!'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $event->delete();
+
+        return response()->json([
+            'message' => 'Event deleted'
+        ]);
     }
 
     public function getCategories()
