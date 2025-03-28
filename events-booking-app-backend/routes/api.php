@@ -28,3 +28,4 @@ Route::post('/events', [EventsController::class, 'store']);
 Route::get('/events', [EventsController::class, 'index']);
 Route::get('/events/user', [EventsController::class, 'getEventsByUserId']);
 Route::get('/events/{id}', [EventsController::class, 'show']);
+Route::patch('/events/{event}', [EventsController::class, 'update']);
