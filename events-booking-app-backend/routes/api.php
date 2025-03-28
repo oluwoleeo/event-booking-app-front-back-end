@@ -25,3 +25,6 @@ Route::post('/signup', [AuthController::class, 'register']);
 
 Route::get('/events/categories', [EventsController::class, 'getCategories']);
 Route::post('/events', [EventsController::class, 'store']);
+Route::get('/events', [EventsController::class, 'index']);
+Route::get('/events/user', [EventsController::class, 'getEventsByUserId']);
+Route::get('/events/{id}', [EventsController::class, 'show']);
