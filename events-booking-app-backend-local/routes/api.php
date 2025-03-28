@@ -16,4 +16,5 @@ Route::post('/events', [EventsController::class, 'store']);
 Route::get('/events', [EventsController::class, 'index']);
 Route::get('/events/user', [EventsController::class, 'getEventsByUserId']);
 Route::get('/events/{id}', [EventsController::class, 'show']);
-Route::patch('/events/{event}', [EventsController::class, 'update']);
+Route::match(['PATCH', 'PUT'], '/events/{event}', [EventsController::class, 'update']);
+Route::delete('/events/{event}', [EventsController::class, 'destroy']);

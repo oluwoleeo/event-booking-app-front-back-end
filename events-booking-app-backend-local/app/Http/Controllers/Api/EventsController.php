@@ -46,7 +46,7 @@ class EventsController extends Controller implements HasMiddleware
                 if ($key === 'max_from') {
                     $to = $queryParams['max_to'] ?? null;
 
-                    if(!$to){
+                    if(!$to || $to <= $value){
                         $eventsBuilder = $eventsBuilder
                             ->where('max_capacity', '>=', $value);
                     } else{
@@ -58,7 +58,7 @@ class EventsController extends Controller implements HasMiddleware
                 if ($key === 'from_start' ){
                     $to = $queryParams['to_start'] ?? null;
 
-                    if(!$to){
+                    if(!$to || $to <= $value){
                         $eventsBuilder = $eventsBuilder
                             ->where('start_date', '>=', $value);
                     } else{
@@ -70,7 +70,7 @@ class EventsController extends Controller implements HasMiddleware
                 if ($key === 'from_end'){
                     $to = $queryParams['to_end'] ?? null;
 
-                    if(!$to){
+                    if(!$to || $to <= $value){
                         $eventsBuilder = $eventsBuilder
                             ->where('end_date', '>=', $value);
                     } else{
@@ -104,7 +104,11 @@ class EventsController extends Controller implements HasMiddleware
 
     public function getEventsByUserId(Request $request)
     {
-        return Event::with('category')->where('owner_id', $request->user()->id)->get();
+        return Event::with('category')
+            ->where('owner_id', $request->user()->id)
+            ->get()
+            ->sortBy('start_date')
+            ->values();
     }
 
     public function store(Request $request)
@@ -148,7 +152,7 @@ class EventsController extends Controller implements HasMiddleware
     public function update(Request $request, Event $event){
         if ($request->user()->id !== $event->owner_id){
             return response()->json([
-                'message' => 'You cannot edit this event'
+                'message' => 'You cannot edit this event!'
             ], Response::HTTP_FORBIDDEN);
         }
 
@@ -172,13 +176,27 @@ class EventsController extends Controller implements HasMiddleware
             }
 
             unset($validated['category']);
-
             $validated['category_id'] = $category->id;
         }
 
         $event->update($validated);
 
         return $event->fresh('category');
+    }
+
+    public function destroy(Request $request, Event $event)
+    {
+        if ($request->user()->id !== $event->owner_id){
+            return response()->json([
+                'message' => 'You cannot delete this event!'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $event->delete();
+
+        return response()->json([
+            'message' => 'Event deleted'
+        ]);
     }
 
     public function getCategories()
