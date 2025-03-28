@@ -145,6 +145,42 @@ class EventsController extends Controller implements HasMiddleware
         return response()->json($event, Response::HTTP_CREATED);
     }
 
+    public function update(Request $request, Event $event){
+        if ($request->user()->id !== $event->owner_id){
+            return response()->json([
+                'message' => 'You cannot edit this event'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $validated = $request->validate(
+            [
+                'name' => 'string|min:1|max:25',
+                'category' => 'string|min:1|max:20',
+                'start_date' => 'required_with:end_date|date|after_or_equal:now',
+                'end_date' => 'required_with:start_date|date|after:start_date',
+                'description' => 'string|min:5|max:255',
+                'max_capacity' => 'numeric|integer|min:7',
+        ]);
+
+        if (array_key_exists('category', $validated)) {
+            $category = Category::all()->first(fn($category) => $category->name === $validated['category']);
+
+            if (!$category) {
+                return response()->json([
+                    'message' => 'Category not found'
+                ], Response::HTTP_BAD_REQUEST);
+            }
+
+            unset($validated['category']);
+
+            $validated['category_id'] = $category->id;
+        }
+
+        $event->update($validated);
+
+        return $event->fresh('category');
+    }
+
     public function getCategories()
     {
         return Category::all();
