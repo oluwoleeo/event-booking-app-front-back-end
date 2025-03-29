@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendee;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Reservation;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -202,5 +204,51 @@ class EventsController extends Controller implements HasMiddleware
     public function getCategories()
     {
         return Category::all();
+    }
+
+    public function createReservation(Request $request, Event $event)
+    {
+        $rules = [
+            'attendees' => 'required|array|min:1',
+            'attendees.*.first_name' => 'required|string|min:2|max:25',
+            'attendees.*.last_name' => 'required|string|min:2|max:25',
+        ];
+        $validated = $request->validate($rules);
+
+        if (now() > $event->start_date ){
+            return response()->json([
+                [
+                    'message' => 'Sorry. Reservation failed. This is a past event!',
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $currentEventAttendeesCount = $event->attendees()->count();
+        $eventAttendeesCountAfterReservation = $currentEventAttendeesCount + count($validated['attendees']);
+
+        if ($eventAttendeesCountAfterReservation > $event->max_capacity){
+            return response()->json([
+                [
+                    'message' => 'Sorry. Reservation failed. Max capacity exceeded!'
+                ], Response::HTTP_BAD_REQUEST
+            ]);
+        }
+
+        $reservation = Reservation::create([
+            'event_id' => $event->id,
+            'user_id' => $request->user()->id,
+        ]);
+
+        $toInsert = [];
+
+        foreach($validated['attendees'] as $key => $value){
+            $value['ticket_id'] = ++$currentEventAttendeesCount;
+            $value['reservation_id'] = $reservation->id;
+            $toInsert[] = $value;
+        }
+
+        $attendees = Attendee::insert($toInsert);
+
+        return response()->json($reservation, Response::HTTP_CREATED);
     }
 }
