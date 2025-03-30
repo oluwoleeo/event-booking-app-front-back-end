@@ -18,6 +18,7 @@ class Attendee extends Model
     ];
 
     protected $hidden = [
+        'id',
         'reservation_id',
         'deleted_at'
     ];

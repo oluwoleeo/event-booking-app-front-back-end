@@ -23,11 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'register']);
 
-Route::get('/events/categories', [EventsController::class, 'getCategories']);
 Route::post('/events', [EventsController::class, 'store']);
 Route::get('/events', [EventsController::class, 'index']);
+Route::get('/events/categories', [EventsController::class, 'getCategories']);
 Route::get('/events/user', [EventsController::class, 'getEventsByUserId']);
-Route::get('/events/{id}', [EventsController::class, 'show']);
+Route::get('/events/reservations', [EventsController::class, 'getUserReservations']);
+Route::get('/events/{event}', [EventsController::class, 'show']);
 Route::match(['PATCH', 'PUT'], '/events/{event}', [EventsController::class, 'update']);
 Route::delete('/events/{event}', [EventsController::class, 'destroy']);
 Route::post('/events/{event}/reservation', [EventsController::class, 'createReservation']);
