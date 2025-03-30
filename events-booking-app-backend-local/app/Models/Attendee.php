@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attendee extends Model
 {
-    use softDeletes;
+    use SoftDeletes;
     public $timestamps = false;
     protected $fillable = [
         'ticket_id',

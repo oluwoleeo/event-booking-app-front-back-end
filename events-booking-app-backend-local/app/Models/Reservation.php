@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reservation extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'event_id',
         'user_id',
@@ -18,6 +21,15 @@ class Reservation extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($reservation) {
+            $reservation->attendees()->delete(); // Soft delete related attendees
+        });
+    }
 
     public function event(): BelongsTo
     {

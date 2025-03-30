@@ -20,3 +20,4 @@ Route::get('/events/{event}', [EventsController::class, 'show']);
 Route::match(['PATCH', 'PUT'], '/events/{event}', [EventsController::class, 'update']);
 Route::delete('/events/{event}', [EventsController::class, 'destroy']);
 Route::post('/events/{event}/reservation', [EventsController::class, 'createReservation']);
+Route::delete('/events/reservation/{reservation}', [EventsController::class, 'deleteReservation']);

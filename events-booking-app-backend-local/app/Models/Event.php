@@ -31,6 +31,16 @@ class Event extends Model
         'deleted_at'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($event) {
+            $event->attendees()->delete(); // must precede the reservations deletion to work
+            $event->reservations()->delete();
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
