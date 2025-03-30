@@ -243,4 +243,19 @@ class EventsController extends Controller
             ->where('user_id', $request->user()->id)
             ->get();
     }
+
+    public function deleteReservation(Request $request, Reservation $reservation)
+    {
+        if ($request->user()->id !== $reservation->user_id){
+            return response()->json([
+                'message' => 'You cannot delete this reservation!'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $reservation->delete();
+
+        return response()->json([
+            'message' => 'Reservation deleted'
+        ]);
+    }
 }
