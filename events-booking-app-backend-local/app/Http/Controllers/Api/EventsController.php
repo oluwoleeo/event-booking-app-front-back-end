@@ -99,9 +99,9 @@ class EventsController extends Controller implements HasMiddleware
             ->values();
     }
 
-    public function show(int $id)
+    public function show(Event $event)
     {
-        return Event::with('category')->find($id);
+        return $event->fresh(['category']);
     }
 
     public function getEventsByUserId(Request $request)
@@ -250,5 +250,12 @@ class EventsController extends Controller implements HasMiddleware
         $attendees = Attendee::insert($toInsert);
 
         return response()->json($reservation, Response::HTTP_CREATED);
+    }
+
+    public function getUserReservations(Request $request)
+    {
+        return Reservation::with(['attendees', 'event'])
+            ->where('user_id', $request->user()->id)
+            ->get();
     }
 }
