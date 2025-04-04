@@ -217,9 +217,7 @@ class EventsController extends Controller implements HasMiddleware
 
         if (now() > $event->start_date ){
             return response()->json([
-                [
-                    'message' => 'Sorry. Reservation failed. This is a past event!',
-                ]
+                'message' => 'Sorry. Reservation failed. This is a past event!',
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -228,10 +226,8 @@ class EventsController extends Controller implements HasMiddleware
 
         if ($eventAttendeesCountAfterReservation > $event->max_capacity){
             return response()->json([
-                [
-                    'message' => 'Sorry. Reservation failed. Max capacity exceeded!'
-                ], Response::HTTP_BAD_REQUEST
-            ]);
+                'message' => 'Sorry. Reservation failed. Max capacity exceeded!'
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         $reservation = Reservation::create([

@@ -12,6 +12,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/signup', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::post('/events', [EventsController::class, 'store']);
 Route::get('/events', [EventsController::class, 'index']);
 Route::get('/events/categories', [EventsController::class, 'getCategories']);
