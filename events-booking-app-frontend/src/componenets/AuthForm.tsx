@@ -12,7 +12,9 @@ export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true)
 
   useEffect(() => {
+    console.log(`GETS HERE 1! showLogin is ${showLogin}`)
     if (showLogin){
+      console.log(`GETS HERE 2! showLogin is ${showLogin}`)
       setIsLogin(showLogin==='true');
     }
   }, [showLogin]);

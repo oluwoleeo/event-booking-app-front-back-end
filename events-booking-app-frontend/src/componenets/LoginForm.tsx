@@ -3,12 +3,14 @@
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {LoginRequest} from '@/app/models/Requests';
-import { login } from '@/app/lib/auth';
+import { login } from '@/app/utils/auth';
+import { useAuth } from "@/app/contexts/AuthContext";
 
 export default function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const message = searchParams.get('message')
+  const { setToken } = useAuth();
 
   const [form, setForm] = useState<LoginRequest>({
     email: '',
@@ -27,9 +29,9 @@ export default function LoginForm() {
     .then(
       loginResponse => {
         if (loginResponse.status === 200) {
-          localStorage.setItem('token', loginResponse.data.token);
+          setToken(loginResponse.data.token);
       
-          router.push('/dashboard')
+          router.push('/events')
         } else {
           setError(loginResponse.data.message);
           return;

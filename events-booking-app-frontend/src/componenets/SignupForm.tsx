@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { SignupRequest } from '@/app/models/Requests';
-import { signup } from '@/app/lib/auth';
+import { signup } from '@/app/utils/auth';
 
 export default function SignupForm() {
   const router = useRouter()

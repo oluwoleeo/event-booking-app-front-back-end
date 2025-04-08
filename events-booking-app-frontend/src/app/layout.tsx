@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/app/contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +26,9 @@ export default function AuthLayout({ children }: Readonly<{ children: React.Reac
           <header className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Events Booking App</h1>
           </header>
+          <AuthProvider>
           {children}
+          </AuthProvider>
         </div>
       </body>
     </html>
