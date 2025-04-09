@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRequireAuth } from '../hooks';
-import ActionPanel from '../ActionPanel';
+import NavbarPanel from '../NavbarPanel';
 import {Event} from '@/app/models/Requests';
 import EventCard from './components/EventCard';
 import { getEvents } from '@/app/utils/api';
@@ -36,7 +36,7 @@ export default function EventsPage() {
   return (
     <div className="container mx-auto p-4">
       {error && <p className="text-xl text-red-600">{error}</p>}
-      <ActionPanel />
+      <NavbarPanel />
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
         {events.map(event => <EventCard key={event.id} event={event}/>)}
       </div>

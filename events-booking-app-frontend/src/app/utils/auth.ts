@@ -1,7 +1,7 @@
 'use client'
 
 import config from '../../../config';
-import {LoginRequest, SignupRequest} from '@/app/models/Requests';
+import {LoginRequest, SignupRequest, User} from '@/app/models/Requests';
 import axios, { AxiosResponse } from "axios";
 
 const validateStatus = (status: number) => status < 500;
@@ -28,10 +28,22 @@ export const signup = async (signupRequest: SignupRequest): Promise<AxiosRespons
   return signupResponse;
 }
 
-export const logout = (): void => {
-  localStorage.removeItem('token')
-}
+export const getAuthenticatedUser = async (token: string): Promise<string | null> => {
+  let username: string | null = localStorage.getItem('username');
 
-export const isAuthenticated = (): boolean => {
-  return !!localStorage.getItem('token')
+  if (!username){
+    const response : AxiosResponse<User> = await axios.get(
+      `${config.api_base_url}/user`, {
+        validateStatus,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+
+    username = `${response.data.firstname} ${response.data.lastname}`;
+    localStorage.setItem('username', username);
+  }
+
+  return username;
 }

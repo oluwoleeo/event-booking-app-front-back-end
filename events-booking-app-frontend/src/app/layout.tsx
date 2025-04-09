@@ -22,10 +22,7 @@ export default function AuthLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-          <header className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Events Booking App</h1>
-          </header>
+        <div className="min-h-screen flex-col items-center justify-center bg-gray-50">
           <AuthProvider>
           {children}
           </AuthProvider>

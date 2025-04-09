@@ -26,3 +26,8 @@ export interface Event {
     category: Category;
 }
 
+export interface User {
+    firstname: string;
+    lastname: string;
+}
+
