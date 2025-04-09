@@ -31,16 +31,18 @@ export default function NavbarPanel() {
     { name: 'View bookings', onClick: () => router.push('/bookings') }
   ];
 
+  const handleGoToEventsPage = () => router.push('/events')
+
   const handleLogout = () => {
     setToken(null);
     router.push('/');
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gray-800 p-4 mb-3">
       <div className="container mx-auto flex justify-between items-center">
         {/* Application Name */}
-        <div className="text-white text-lg font-bold">Events Booking App</div>
+        <div className="text-white text-lg font-bold" onClick={handleGoToEventsPage}>Events Booking App</div>
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">

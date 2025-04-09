@@ -6,7 +6,7 @@ export default function EventCard({event}) {
     const router = useRouter();
     
     const handleBooking = () => {
-        router.push(`/events/${event.id}/reservation`);
+        router.push(`/events/${event.id}/booking`);
     };
 
     return (

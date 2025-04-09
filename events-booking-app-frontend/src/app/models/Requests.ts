@@ -23,7 +23,7 @@ export interface Event {
     end_date: Date;
     description: string;
     max_capacity: number;
-    category: Category;
+    category?: Category;
 }
 
 export interface User {
@@ -31,3 +31,18 @@ export interface User {
     lastname: string;
 }
 
+export interface Attendee {
+    ticket_id?: string;
+    first_name: string;
+    last_name: string;
+}
+
+export interface CreateBooking {
+    attendees: Attendee[]
+}
+
+export interface Booking {
+    id: number;
+    attendees: Attendee[]
+    event: Event
+}
