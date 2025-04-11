@@ -7,7 +7,7 @@ import NavbarPanel from '@/app/NavbarPanel';
 import { useRequireAuth } from '../../../hooks';
 import { deleteBooking } from '@/app/utils/api';
 
-export default function BookingDisplay({ id }){
+export default function BookingDisplayPage({ id }){
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [booking, setBooking] = useState<Booking | null>(null);
   const [error, setError] = useState<string>(null);

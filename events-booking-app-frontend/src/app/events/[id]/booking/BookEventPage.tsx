@@ -7,7 +7,7 @@ import {Attendee, CreateBooking} from '@/app/models/Requests';
 import { useRouter } from 'next/navigation';
 import NavbarPanel from '@/app/NavbarPanel';
 
-export default function EventBookingPage ({ id }) {
+export default function BookEventPage ({ id }) {
   const [attendees, setAttendees] = useState<Attendee[]>([{ first_name: '', last_name: '' }]);
   const [error, setError] = useState<string>('')
 

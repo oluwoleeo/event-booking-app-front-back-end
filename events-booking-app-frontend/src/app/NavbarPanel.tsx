@@ -12,6 +12,7 @@ export default function NavbarPanel() {
   const {token} = useAuth();
 
   const [username, setUsername] = useState<string | null>('');
+  const [userId, setUserId] = useState<string | null>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -21,14 +22,15 @@ export default function NavbarPanel() {
         }
 
         getUsername(token);
+        setUserId(localStorage.getItem('userid'));
     }}, [token]);
   
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const actions = [
     { name: 'Create event', onClick: () => router.push('/events/create') },
-    { name: 'Manage event', onClick: () => router.push('/events/manage') },
-    { name: 'View bookings', onClick: () => router.push('/bookings') }
+    { name: 'View all your events', onClick: () => router.push(`/events/users/${userId}`) },
+    { name: 'View your bookings', onClick: () => router.push('/events/bookings') }
   ];
 
   const handleGoToEventsPage = () => router.push('/events')

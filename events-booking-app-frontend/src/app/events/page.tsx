@@ -7,7 +7,7 @@ import {Event} from '@/app/models/Requests';
 import EventCard from './components/EventCard';
 import { getEvents } from '@/app/utils/api';
 
-export default function EventsPage() {
+export default function AllEventsPage() {
   const token = useRequireAuth();
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<string>('')

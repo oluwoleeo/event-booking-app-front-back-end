@@ -23,6 +23,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         localStorage.removeItem('token');
         localStorage.removeItem('booking');
         localStorage.removeItem('username');
+        localStorage.removeItem('userid');
       }
     }
   };

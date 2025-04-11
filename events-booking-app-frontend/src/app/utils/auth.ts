@@ -43,6 +43,7 @@ export const getAuthenticatedUser = async (token: string): Promise<string | null
 
     username = `${response.data.firstname} ${response.data.lastname}`;
     localStorage.setItem('username', username);
+    localStorage.setItem('userid', response.data.id);
   }
 
   return username;

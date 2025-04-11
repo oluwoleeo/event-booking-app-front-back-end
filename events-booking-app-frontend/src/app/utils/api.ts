@@ -20,6 +20,19 @@ export const getEvents = async (token: string): Promise<AxiosResponse<Event[]>> 
     return response;
   }
 
+  export const getUserEvents = async (token: string): Promise<AxiosResponse<Event[]>> => {
+    const response = await axios.get(
+      `${config.api_base_url}/events/user`, {
+        validateStatus,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  
+    return response;
+  }
+
   export const bookEvent = async (token: string, id: number, bookingRequest: CreateBooking): Promise<AxiosResponse> => {
     const response = await axios.post(
       `${config.api_base_url}/events/${id}/reservation`, bookingRequest, {
