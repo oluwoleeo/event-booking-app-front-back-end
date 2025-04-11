@@ -37,12 +37,10 @@ export default function EventBookingPage ({ id }) {
         attendees
       };
 
-      console.log(attendees);
-
       bookEvent(token, id, booking)
       .then(response => {
         if (response.status === 201){
-          router.push('/events/reservations?message=Reservation created');
+          router.push('/events/bookings?message=Booking created');
         } else {
           setError(response.data.message);
           return;

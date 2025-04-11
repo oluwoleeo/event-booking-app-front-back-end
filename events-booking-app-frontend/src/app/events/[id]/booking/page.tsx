@@ -1,7 +1,7 @@
-import EventBookingPage from "./EventBookingPage";
+import BookEvent from "./BookEvent";
 
-export default async function EventBooking ({ params }: { params: Promise<{id: string}> } ){
+export default async function BookEventPage ({ params }: { params: Promise<{id: string}> } ){
     const { id } = await params;
 
-    return <EventBookingPage id={id} />
+    return <BookEvent id={id} />
 }

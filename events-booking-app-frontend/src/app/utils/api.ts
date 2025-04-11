@@ -45,3 +45,16 @@ export const getEvents = async (token: string): Promise<AxiosResponse<Event[]>> 
   
     return response;
   }
+
+  export const deleteBooking = async (token: string, id: number): Promise<AxiosResponse> => {
+    const response = await axios.delete(
+      `${config.api_base_url}/events/reservation/${id}`, {
+        validateStatus,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  
+    return response;
+  }
