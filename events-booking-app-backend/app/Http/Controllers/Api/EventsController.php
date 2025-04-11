@@ -19,7 +19,9 @@ class EventsController extends Controller
 
     public function index(Request $request)
     {
-        $eventsBuilder = Event::with('category');
+        $eventsBuilder = Event::with('category')
+            ->where('start_date', '>=', now());
+
         $queryParams = $request->query();
 
         if (count($queryParams) > 0){
