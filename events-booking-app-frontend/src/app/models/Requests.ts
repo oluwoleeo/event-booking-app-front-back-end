@@ -1,4 +1,4 @@
-interface Category {
+export interface Category {
     id: number;
     name: string;
 }
@@ -36,6 +36,15 @@ export interface Attendee {
     ticket_id?: string;
     first_name: string;
     last_name: string;
+}
+
+export interface CreateEvent {
+    name: string;
+    start_date: Date | string;
+    end_date: Date | string;
+    description: string;
+    category: string;
+    max_capacity?: number;
 }
 
 export interface CreateBooking {

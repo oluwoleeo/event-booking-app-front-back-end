@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
+      <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
         <div className="min-h-screen flex-col items-center justify-center bg-gray-50">
           <AuthProvider>
           {children}

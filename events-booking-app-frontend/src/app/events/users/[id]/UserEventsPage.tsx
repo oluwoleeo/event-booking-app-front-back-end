@@ -7,12 +7,15 @@ import NavbarPanel from '../../../NavbarPanel';
 import {Event} from '@/app/models/Requests';
 import EventCard from '../../components/EventCard';
 import { getUserEvents } from '@/app/utils/api';
+import { useSearchParams } from 'next/navigation';
 
 export default function UserEventsPage({ id }) {
     const token = useRequireAuth();
     const [username, setUsername] = useState<string | null>('');
     const [events, setEvents] = useState<Event[]>([]);
     const [error, setError] = useState<string>('');
+    const searchParams = useSearchParams();
+    const message = searchParams.get('message')
     
     useEffect(() => {
         if (token) {
@@ -43,8 +46,9 @@ export default function UserEventsPage({ id }) {
 
     return (
         <div className="container mx-auto p-4">
-          {error && <p className="text-xl text-red-600">{error}</p>}
           <NavbarPanel />
+          {error && <p className="text-xl text-red-600">{error}</p>}
+          {message && <p className="text-green-600">{message}</p>}
           <h2 className="text-2xl font-bold mb-4 text-black">{`${username}'s events`}</h2>
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
             {events.map(event => <EventCard key={event.id} event={event}/>)}
