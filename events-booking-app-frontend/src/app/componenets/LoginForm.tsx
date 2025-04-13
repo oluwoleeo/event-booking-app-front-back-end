@@ -1,15 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import {LoginRequest} from '@/app/models/Requests';
 import { login } from '@/app/utils/auth';
 import { useAuth } from "@/app/contexts/AuthContext";
 
-export default function LoginForm() {
+export default function LoginForm({message}:{message:string | null}) {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const message = searchParams.get('message')
   const { setToken } = useAuth();
 
   const [form, setForm] = useState<LoginRequest>({
@@ -52,7 +50,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <h2 className="text-2xl font-bold text-center">Login</h2>
 
-      {message && <p className="text-green-600">{message}</p>}
+      {message && <p className="text-xl text-green-600">{message}</p>}
       {error && <p className="text-xl text-red-600">{error}</p>}
 
       <input

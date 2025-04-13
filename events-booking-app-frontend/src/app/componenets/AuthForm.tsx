@@ -9,12 +9,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 export default function AuthForm() {
   const searchParams = useSearchParams()
   const showLogin = searchParams.get('showLogin');
+  const message = searchParams.get('message')
   const [isLogin, setIsLogin] = useState(true)
 
   useEffect(() => {
-    console.log(`GETS HERE 1! showLogin is ${showLogin}`)
     if (showLogin){
-      console.log(`GETS HERE 2! showLogin is ${showLogin}`)
       setIsLogin(showLogin==='true');
     }
   }, [showLogin]);
@@ -30,7 +29,7 @@ export default function AuthForm() {
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.3 }}
           >
-            <LoginForm />
+            <LoginForm message={message}/>
           </motion.div>
         ) : (
           <motion.div

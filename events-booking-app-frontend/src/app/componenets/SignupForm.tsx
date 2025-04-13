@@ -39,7 +39,7 @@ export default function SignupForm() {
       signup(form)
       .then(
         signupResponse => {
-            if (signupResponse.status !== 200) {
+            if (signupResponse.status !== 201) {
                 setError(signupResponse.data.message)
                 return
             }
