@@ -8,6 +8,7 @@ import {Event} from '@/app/models/Requests';
 import EventCard from '../../components/EventCard';
 import { getUserEvents } from '@/app/utils/api';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function UserEventsPage({ id }) {
     const token = useRequireAuth();
@@ -48,10 +49,11 @@ export default function UserEventsPage({ id }) {
         <div className="container mx-auto p-4">
           <NavbarPanel />
           {error && <p className="text-xl text-red-600">{error}</p>}
-          {message && <p className="text-green-600">{message}</p>}
+          {message && <p className="text-xl text-green-600">{message}</p>}
           <h2 className="text-2xl font-bold mb-4 text-black">{`${username}'s events`}</h2>
+          {events.length === 0 && <p className="text-black text-2xl">You have not created any event. Click <Link className="underline text-blue-600" href="/events/create">here</Link> to create one</p>}
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {events.map(event => <EventCard key={event.id} event={event}/>)}
+            {events.map(event => <EventCard key={event.id} event={event} isCreatedByUser={true}/>)}
           </div>
         </div>
       );

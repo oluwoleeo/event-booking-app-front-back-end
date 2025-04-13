@@ -1,7 +1,7 @@
-import BookEventPage from "./BookEventPage";
+import EventActionPage from "./EventActionPage";
 
 export default async function Page ({ params }: { params: Promise<{id: string}> } ){
     const { id } = await params;
 
-    return <BookEventPage id={id} />
+    return <EventActionPage id={id} />
 }

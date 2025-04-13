@@ -24,7 +24,7 @@ export default function BookingDisplayPage({ id }){
     }
   }, [router]);
   
-  const handleDelete = () => {
+  const handleDeleteBooking = () => {
     if (token) {
       deleteBooking(token, id)
       .then(response => {
@@ -82,7 +82,7 @@ export default function BookingDisplayPage({ id }){
                 Cancel
               </button>
               <button
-                onClick={handleDelete}
+                onClick={handleDeleteBooking}
                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               >
                 Delete
