@@ -47,6 +47,15 @@ export interface CreateEvent {
     max_capacity?: number;
 }
 
+export interface UpdateEvent {
+    name?: string;
+    start_date?: Date | string;
+    end_date?: Date | string;
+    description?: string;
+    category?: string;
+    max_capacity?: number;
+}
+
 export interface CreateBooking {
     attendees: Attendee[]
 }

@@ -1,4 +1,4 @@
-import AuthForm from '../componenets/AuthForm'
+import AuthForm from './componenets/AuthForm'
 
 export default function AuthPage() {
   return (

@@ -46,7 +46,7 @@ export default function ViewBookings() {
   return (
     <div className="container mx-auto p-4">
       <NavbarPanel />
-      {message && <p className="text-green-600">{message}</p>}
+      {message && <p className="text-xl text-green-600">{message}</p>}
       {error && <p className="text-xl text-red-600">{error}</p>}
       <h2 className="text-2xl font-bold mb-4 text-black">Your Bookings</h2>
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

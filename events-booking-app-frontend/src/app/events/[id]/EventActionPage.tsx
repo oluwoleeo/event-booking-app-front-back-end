@@ -23,9 +23,9 @@ export default function EventActionPage ({ id }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (token) {
+    if (token && canManage) {
       setUserId(localStorage.getItem('userid'));
-    }}, [token]);
+    }}, [token, canManage]);
 
   const handleInputChange = (index:number, event:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -43,8 +43,14 @@ export default function EventActionPage ({ id }) {
     setAttendees(newAttendees);
   };
 
+  const handleUpdateEvent = () => {
+    if (token && canManage){
+      router.push(`/events/${id}/users/${userId}`);
+    }
+  }
+
   const handleDeleteEvent = () => {
-      if (token) {
+      if (token && canManage) {
         deleteEvent(token, id)
         .then(response => {
           if (response.status === 200){
@@ -63,6 +69,8 @@ export default function EventActionPage ({ id }) {
           return;
         });
       }
+
+      localStorage.removeItem('event');
     }
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -98,7 +106,7 @@ export default function EventActionPage ({ id }) {
       {canManage && <div className="mb-10 flex items-center space-x-4">
           <button
             type="button"
-            onClick={handleAddAttendee}
+            onClick={handleUpdateEvent}
             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
           >
             Update Event

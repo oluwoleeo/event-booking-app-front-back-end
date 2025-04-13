@@ -57,10 +57,6 @@ export default function CreateEventPage(){
       alert('Please fill in all required fields.');
       return;
     }
-    if (maxCapacity && isNaN(maxCapacity)) {
-      alert('Max capacity must be a number.');
-      return;
-    }
 
     const eventData: CreateEvent = {
       name: eventName,
@@ -70,8 +66,6 @@ export default function CreateEventPage(){
       category,
       max_capacity: maxCapacity ? parseInt(maxCapacity, 10) : undefined
     };
-
-    console.log('Event Data:', eventData);
     
     createEvent(token, eventData)
     .then(response => {
@@ -102,9 +96,7 @@ export default function CreateEventPage(){
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Event Name */}
         <div>
-          <label htmlFor="event_name" className="block text-sm font-medium text-gray-700">
-            Event Name
-          </label>
+          <label htmlFor="event_name" className="block text-sm font-medium text-gray-700">Event Name</label>
           <input
             id="event_name"
             type="text"
@@ -118,9 +110,7 @@ export default function CreateEventPage(){
 
         {/* Start Date */}
         <div>
-          <label htmlFor="start_date" className="block text-sm font-medium text-gray-700">
-            Start Date
-          </label>
+          <label htmlFor="start_date" className="block text-sm font-medium text-gray-700">Start Date</label>
           <DatePicker
             id="start_date"
             selected={startDate}
@@ -139,9 +129,7 @@ export default function CreateEventPage(){
 
         {/* End Date */}
         <div>
-          <label htmlFor="end_date" className="block text-sm font-medium text-gray-700">
-            End Date
-          </label>
+          <label htmlFor="end_date" className="block text-sm font-medium text-gray-700">End Date</label>
           <DatePicker
             id="end_date"
             selected={endDate}
@@ -161,9 +149,7 @@ export default function CreateEventPage(){
 
         {/* Description */}
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Description
-          </label>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
           <textarea
             id="description"
             value={description}
@@ -178,9 +164,7 @@ export default function CreateEventPage(){
 
         {/* Category */}
         <div>
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-            Category
-          </label>
+          <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
           <Select
             id="category"
             value={category?.name}
@@ -195,9 +179,7 @@ export default function CreateEventPage(){
 
         {/* Max Capacity */}
         <div>
-          <label htmlFor="max_capacity" className="block text-sm font-medium text-gray-700">
-            Max Capacity (optional)
-          </label>
+          <label htmlFor="max_capacity" className="block text-sm font-medium text-gray-700">Max Capacity (optional)</label>
           <input
             id="max_capacity"
             type="number"

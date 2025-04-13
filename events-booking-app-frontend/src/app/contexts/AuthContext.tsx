@@ -25,6 +25,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         localStorage.removeItem('username');
         localStorage.removeItem('userid');
         localStorage.removeItem('eventcategories');
+        localStorage.removeItem('event');
       }
     }
   };

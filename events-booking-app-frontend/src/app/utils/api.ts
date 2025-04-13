@@ -3,7 +3,7 @@
 import config from '../../../config';
 import axios, { AxiosResponse } from "axios";
 
-import {Booking, Category, CreateBooking, CreateEvent, Event} from '@/app/models/Requests';
+import {Booking, Category, CreateBooking, CreateEvent, Event, UpdateEvent} from '@/app/models/Requests';
 
 const validateStatus = (status: number) => status < 500;
 
@@ -56,6 +56,19 @@ export const getEvents = async (token: string): Promise<AxiosResponse<Event[]>> 
   export const createEvent = async (token: string, eventRequest: CreateEvent): Promise<AxiosResponse> => {
     const response = await axios.post(
       `${config.api_base_url}/events`, eventRequest, {
+        validateStatus,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+      }
+    );
+  
+    return response;
+  }
+
+  export const updateEvent = async (token: string, id: number, eventRequest: UpdateEvent): Promise<AxiosResponse> => {
+    const response = await axios.patch(
+      `${config.api_base_url}/events/${id}`, eventRequest, {
         validateStatus,
         headers: {
             "Authorization": `Bearer ${token}`

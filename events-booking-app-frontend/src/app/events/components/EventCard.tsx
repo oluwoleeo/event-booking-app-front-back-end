@@ -8,6 +8,7 @@ export default function EventCard({event, isCreatedByUser}: {event: Event, isCre
     
     const handleEventActions = () => {
         if (isCreatedByUser){
+            localStorage.setItem('event', JSON.stringify(event));
             router.push(`/events/${event.id}?eventName=${event.name}&canManage=true`);
         } else{
             router.push(`/events/${event.id}?eventName=${event.name}`);
