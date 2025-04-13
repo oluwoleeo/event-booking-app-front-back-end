@@ -155,6 +155,12 @@ class EventsController extends Controller
                 'max_capacity' => 'numeric|integer|min:7',
             ]);
 
+        if (now() >= $event->start_date ){
+            return response()->json([
+                'message' => 'Sorry. You cannot update a past or ongoing event!',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         if (array_key_exists('category', $validated)) {
             $category = Category::all()->first(fn($category) => $category->name === $validated['category']);
 
