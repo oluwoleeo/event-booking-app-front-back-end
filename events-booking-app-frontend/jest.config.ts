@@ -12,6 +12,14 @@ const createJestConfig = nextJest({
 })
 
 const customJestConfig = {
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '**/*.{js,jsx,ts,tsx}',
+    '!**/node_modules/**',
+    '!**/.next/**',
+    '!**/coverage/**',
+  ],
+  coverageReporters: ['text', 'lcov'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
